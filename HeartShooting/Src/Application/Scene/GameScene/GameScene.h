@@ -8,8 +8,6 @@ public:
 	GameScene() {}
 	~GameScene() {}
 
-	bool m_text = true;
-
 private:
 
 	void Event() override;
