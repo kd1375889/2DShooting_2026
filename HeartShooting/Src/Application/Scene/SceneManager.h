@@ -43,8 +43,7 @@ private:
 	void ChangeScene(SceneType a_sceneType);
 
 	std::shared_ptr<BaseScene> m_currentScene = nullptr;
-
-	SceneType m_currentSceneType = SceneType::Title;
+	SceneType m_currentSceneType = SceneType::Game;
 	SceneType m_nextSceneType = m_currentSceneType;
 
 private:

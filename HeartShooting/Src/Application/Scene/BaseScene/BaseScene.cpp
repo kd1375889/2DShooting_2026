@@ -1,5 +1,9 @@
 ﻿#include "BaseScene.h"
 
+void BaseScene::Init()
+{
+}
+
 void BaseScene::PreUpdate()
 {
 	std::list<std::shared_ptr<KdGameObject>>::iterator itr = m_objList.begin();
@@ -129,6 +133,6 @@ void BaseScene::Event()
 {
 }
 
-void BaseScene::Init()
+void BaseScene::Release()
 {
 }

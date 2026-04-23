@@ -7,3 +7,7 @@ void ResultScene::Event()
 void ResultScene::Init()
 {
 }
+
+void ResultScene::Release()
+{
+}

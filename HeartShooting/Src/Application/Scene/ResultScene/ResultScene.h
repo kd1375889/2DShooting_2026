@@ -10,6 +10,7 @@ public:
 
 private:
 
-	void Event() override;
-	void Init() override;
+	void Event()	override;
+	void Init()		override;
+	void Release()	override;
 };

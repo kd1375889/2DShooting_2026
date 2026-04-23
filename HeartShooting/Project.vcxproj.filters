@@ -91,6 +91,18 @@
     <Filter Include="Src\Application\Object\ResultObject">
       <UniqueIdentifier>{54ec19b7-3809-474f-929b-b610ff3f187e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Stage">
+      <UniqueIdentifier>{bd37b478-7b7d-42c5-8be4-05e5ff9b5f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Stage\BackGround">
+      <UniqueIdentifier>{c3a58a2c-cf6a-473a-a9f2-7d5d3ac53611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Character">
+      <UniqueIdentifier>{ff6da7d0-d142-4056-b87a-19f33722d3ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Character\Player">
+      <UniqueIdentifier>{7704d447-b587-4ac6-9b53-0a5fcdff43ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -270,6 +282,18 @@
     <ClInclude Include="Src\Application\Scene\ResultScene\ResultScene.h">
       <Filter>Src\Application\Scene\ResultScene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Stage\BackGround\BackGround.h">
+      <Filter>Src\Application\Object\GameObject\Stage\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\BaseObject.h">
+      <Filter>Src\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\BaseCharacter.h">
+      <Filter>Src\Application\Object\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\Player\Player.h">
+      <Filter>Src\Application\Object\GameObject\Character\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -418,6 +442,18 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Scene\BaseScene\BaseScene.cpp">
       <Filter>Src\Application\Scene\BaseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Stage\BackGround\BackGround.cpp">
+      <Filter>Src\Application\Object\GameObject\Stage\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\BaseObject.cpp">
+      <Filter>Src\Application\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\BaseCharacter.cpp">
+      <Filter>Src\Application\Object\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\Player\Player.cpp">
+      <Filter>Src\Application\Object\GameObject\Character\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

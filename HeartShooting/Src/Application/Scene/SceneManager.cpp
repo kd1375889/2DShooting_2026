@@ -1,5 +1,4 @@
 ﻿#include "SceneManager.h"
-#include "BaseScene/BaseScene.h"
 #include "TitleScene/TitleScene.h"
 #include "GameScene/GameScene.h"
 #include "ResultScene/ResultScene.h"
@@ -68,6 +67,8 @@ void SceneManager::ChangeScene(SceneType a_sceneType)
 		m_currentScene = std::make_shared<ResultScene>();
 		break;
 	}
+
+	m_currentScene->Init();
 
 	m_currentSceneType = a_sceneType;
 }

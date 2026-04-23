@@ -4,8 +4,10 @@ class BaseScene
 {
 public:
 
-	BaseScene() { Init(); }
-	virtual ~BaseScene() {};
+	BaseScene() {};
+	virtual ~BaseScene() { Release(); };
+
+	virtual void Init();
 
 	void PreUpdate();
 	void Update();
@@ -29,7 +31,7 @@ public:
 protected:
 
 	virtual void Event();
-	virtual void Init();
+	virtual void Release();
 
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
 };
