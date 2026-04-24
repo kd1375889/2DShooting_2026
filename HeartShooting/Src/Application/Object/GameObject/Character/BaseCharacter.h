@@ -16,6 +16,7 @@ protected:
 	virtual void Init()			override;
 	virtual void Release()		override;
 
-	int m_hp = 1;		//体力
+	int		m_hp = 1;				//体力
+	bool	m_alive = false;		//生存フラグ
 
 };

@@ -1,6 +1,7 @@
 ﻿#include "main.h"
 
 #include "Scene/SceneManager.h"
+#include "../Application/Object/Cursor/CursorManager.h"
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // エントリーポイント
@@ -23,7 +24,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_  HINSTANCE, _In_ LPSTR , _In_ int)
 	setlocale(LC_ALL, "japanese");
 
 	//===================================================================
-	// 実行]
+	// 実行
 	//===================================================================
 	Application::Instance().Execute();
 
@@ -218,7 +219,7 @@ bool Application::Init(int w, int h)
 	// ゲーム固有の初期化
 	//===================================================================
 	// 例えばカーソルを消したい場合
-	//ShowCursor(false);
+	ShowCursor(false);
 	
 	return true;
 }
@@ -287,6 +288,10 @@ void Application::Execute()
 		//
 		//=========================================
 
+		//追加　カーソル
+		CursorManager::Instance().CalcMousePos(Application::Instance().GetWindowHandle());
+		KdDebugGUI::Instance().AddLog("%d\n", CursorManager::Instance().GetCurPos().x);
+
 		KdBeginUpdate();
 		{
 			PreUpdate();
@@ -329,6 +334,15 @@ void Application::Execute()
 	//===================================================================
 	Release();
 }
+
+//void Application::CalcCursorPos(POINT* a_curPos)
+//{
+//	GetCursorPos(a_curPos);
+//	ScreenToClient(Application::Instance().m_window.GetWndHandle(), a_curPos);
+//	a_curPos->x -= 1280 / 2;
+//	a_curPos->y -= 720 / 2;
+//	a_curPos->y *= -1;
+//}
 
 // アプリケーション終了
 void Application::Release()

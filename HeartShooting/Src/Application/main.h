@@ -21,6 +21,10 @@ public:
 	int		GetNowFPS()			const	{ return m_fpsController.m_nowfps; }
 	int		GetMaxFPS()			const	{ return m_fpsController.m_maxFps; }
 	float	GetDeltaTime()		const	{ return m_fpsController.GetDeltaTime(); }
+
+	//追加
+	void CalcCursorPos(POINT* a_curPos);
+
 private:
 
 	void KdBeginUpdate();

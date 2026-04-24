@@ -11,13 +11,13 @@ void BackGround::Init()
 	m_rect = { 0,0,(long)m_ScreenSize.x,(long)m_ScreenSize.y };
 
 	//スクロール速度
-	m_backMove = 3.0f;
+	m_moveSpd = 3.0f;
 }
 
 void BackGround::Update()
 {
 	//スクロール
-	m_pos.y -=m_backMove;
+	m_pos.y -= m_moveSpd;
 	if (m_pos.y < -720)
 	{
 		m_pos.y = 0;

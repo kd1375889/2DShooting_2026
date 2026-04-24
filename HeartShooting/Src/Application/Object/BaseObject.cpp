@@ -19,6 +19,14 @@ void BaseObject::Hit()
 
 void BaseObject::Init()
 {
+	m_rect = { 0,0,0,0 };
+	m_rad = {};
+	m_pos = {};
+	m_move = {};
+	m_moveSpd = 0.0f;
+
+	m_animeMove = 0.0f;
+	m_animeSpd = 0.1f;
 }
 
 void BaseObject::Release()
@@ -27,11 +35,4 @@ void BaseObject::Release()
 	{
 		m_spTex = nullptr;
 	}
-	m_rect = {0,0,0,0};
-	m_rad = {};
-	m_pos = {};
-	m_move = {};
-	m_scrollX = 0.0f;
-	m_scrollMin = 0.0f;
-	m_scrollMax = 0.0f;
 }

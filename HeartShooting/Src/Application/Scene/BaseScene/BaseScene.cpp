@@ -1,4 +1,5 @@
 ﻿#include "BaseScene.h"
+#include "../../Object/Cursor/CursorManager.h"
 
 void BaseScene::Init()
 {
@@ -111,6 +112,9 @@ void BaseScene::DrawSprite()
 		{
 			obj->DrawSprite();
 		}
+
+		//カーソル描画(全てのシーンで)
+		CursorManager::Instance().DrawSprite();
 	}
 	KdShaderManager::Instance().m_spriteShader.End();
 }

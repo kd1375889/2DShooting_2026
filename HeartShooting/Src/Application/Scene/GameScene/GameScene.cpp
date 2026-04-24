@@ -18,6 +18,7 @@ void GameScene::Init()
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 	player->Init();
 	m_objList.push_back(player);
+
 }
 
 void GameScene::Release()

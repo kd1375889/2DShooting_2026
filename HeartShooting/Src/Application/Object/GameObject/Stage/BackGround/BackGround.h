@@ -17,5 +17,4 @@ private:
 	void Release()		override;
 
 	std::shared_ptr<KdTexture>	m_spBackTex[2] = {};
-	float						m_backMove = 0.0f;
 };
