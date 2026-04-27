@@ -8,33 +8,47 @@ void Player::Init()
 	//テクスチャ
 	m_spTex = std::make_shared<KdTexture>();
 	m_spTex->Load("Asset/Textures/Game/Player2.png");
-	m_rect = { 0,35,17,35};
+	SetSplit(9, 3);
+
+	//オブジェクトタイプ
+	m_objType = ObjectType::Player;
 
 	//初期値
-	m_rad = { 17,35 };
+	m_rad = { 9,13 };
 	m_pos = { 0,-200 };
 	m_alive = true;
+	m_shotCount = 30;
+
+	//アニメーション値
+	m_animeInfo.start = 10;
+	m_animeInfo.end = 15;
+	m_animeInfo.count = 0.0f;
+	m_animeInfo.speed = 0.1f;
 }
 
 void Player::Update()
 {
+	//弾発射間隔
+	m_shotCount--;
+	if (m_shotCount < -1) m_shotCount = -1;
+
 	//操作
 	Action();
+}
 
-	//アニメーション
-	m_animeMove += m_animeSpd;
-	if (m_animeMove > 4)m_animeMove = 0;
-	m_rect = { (long)m_rad.x * (int)m_animeMove,(long)m_rad.y,(long)m_rad.x,(long)m_rad.y };
+void Player::PostUpdate()
+{
+	BaseObject::Animetion();
 }
 
 void Player::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, m_pos.x, m_pos.y,80,100,&m_rect);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, m_pos.x, m_pos.y,64,64,&m_rect);
 }
 
-void Player::Release()
+void Player::Hit()
 {
-
+	m_isExpired = true;
 }
 
 void Player::Action()
@@ -42,10 +56,15 @@ void Player::Action()
 	//弾発射
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 	{
-		float angle = CursorManager::Instance().CalcToCurAng(m_pos);
-		std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
-		bullet->Init();
-		bullet->Shot(m_pos, angle);
-		SceneManager::Instance().AddObject(bullet);
+		if (m_shotCount < 0)
+		{
+			float angle = CursorManager::Instance().CalcToCurAng(m_pos);
+			std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
+			bullet->Init();
+			bullet->Shot(m_pos, angle);
+			SceneManager::Instance().AddObject(bullet);
+
+			m_shotCount = 30;
+		}
 	}
 }

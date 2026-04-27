@@ -10,6 +10,9 @@ void BackGround::Init()
 	}
 	m_rect = { 0,0,(long)m_ScreenSize.x,(long)m_ScreenSize.y };
 
+	//オブジェクトタイプ
+	m_objType = ObjectType::None;
+
 	//スクロール速度
 	m_moveSpd = 3.0f;
 }
@@ -34,4 +37,5 @@ void BackGround::DrawSprite()
 
 void BackGround::Release()
 {
+
 }

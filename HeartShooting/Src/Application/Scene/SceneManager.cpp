@@ -43,12 +43,12 @@ void SceneManager::DrawDebug()
 	m_currentScene->DrawDebug();
 }
 
-const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()
+std::list<std::shared_ptr<BaseObject>> SceneManager::GetObjList() const
 {
 	return m_currentScene->GetObjList();
 }
 
-void SceneManager::AddObject(const std::shared_ptr<KdGameObject>& a_obj)
+void SceneManager::AddObject(const std::shared_ptr<BaseObject>& a_obj)
 {
 	m_currentScene->AddObjList(a_obj);
 }

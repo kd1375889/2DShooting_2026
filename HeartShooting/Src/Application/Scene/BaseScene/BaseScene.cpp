@@ -1,5 +1,6 @@
 ﻿#include "BaseScene.h"
 #include "../../Object/Cursor/CursorManager.h"
+#include "../../Object/BaseObject.h"
 
 void BaseScene::Init()
 {
@@ -7,7 +8,7 @@ void BaseScene::Init()
 
 void BaseScene::PreUpdate()
 {
-	std::list<std::shared_ptr<KdGameObject>>::iterator itr = m_objList.begin();
+	std::list<std::shared_ptr<BaseObject>>::iterator itr = m_objList.begin();
 	while (itr != m_objList.end())
 	{
 		if ((*itr)->IsExpired())

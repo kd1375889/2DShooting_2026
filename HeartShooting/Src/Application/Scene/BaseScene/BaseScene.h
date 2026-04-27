@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+class BaseObject;
+
 class BaseScene
 {
 public:
@@ -18,12 +20,12 @@ public:
 	void DrawSprite();
 	void DrawDebug();
 
-	const std::list<std::shared_ptr<KdGameObject>>& GetObjList()
+	const std::list<std::shared_ptr<BaseObject>>& GetObjList()
 	{
 		return m_objList;
 	}
 
-	void AddObjList(const std::shared_ptr<KdGameObject>& a_obj)
+	void AddObjList(const std::shared_ptr<BaseObject>& a_obj)
 	{
 		m_objList.push_back(a_obj);
 	}
@@ -33,5 +35,5 @@ protected:
 	virtual void Event();
 	virtual void Release();
 
-	std::list<std::shared_ptr<KdGameObject>> m_objList;
+	std::list<std::shared_ptr<BaseObject>> m_objList;
 };

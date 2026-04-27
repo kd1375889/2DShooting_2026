@@ -6,6 +6,7 @@ void BaseObject::Update()
 
 void BaseObject::PostUpdate()
 {
+
 }
 
 void BaseObject::DrawSprite()
@@ -15,18 +16,67 @@ void BaseObject::DrawSprite()
 
 void BaseObject::Hit()
 {
+
+}
+
+//テスト
+void BaseObject::Animetion()
+{
+	//アニメーション
+	m_animeInfo.count += m_animeInfo.speed;
+	int frame = m_animeInfo.start + (int)m_animeInfo.count;
+	if (frame > m_animeInfo.end)
+	{
+		//終了コマを超えたらリセット
+		frame = m_animeInfo.start;
+		m_animeInfo.count = 0.0f;
+	}
+	CalcAnimeFrame(frame);
+}
+
+void BaseObject::ChangeAnimetion()
+{
+
+}
+
+void BaseObject::SetSplit(int a_splitX, int a_splitY)
+{
+	//分割数セット
+	m_splitX = a_splitX;
+	m_splitY = a_splitY;
+}
+
+void BaseObject::CalcAnimeFrame(int frame)
+{
+	//何コマ目かを受け取り、X,Yそれぞれ何分割目かを計算
+	int splitX,splitY;
+	splitX = (frame - 1) % m_splitX;
+	splitY = (frame - 1) / m_splitX;
+	m_rectMin.x = splitX * m_rad.x * 2;
+	m_rectMin.y = splitY * m_rad.y * 2;
+
+	m_rect = { (long)m_rectMin.x,(long)m_rectMin.y,(long)m_rad.x * 2,(long)m_rad.y * 2 };
 }
 
 void BaseObject::Init()
 {
+	m_objType = ObjectType::None;
+
 	m_rect = { 0,0,0,0 };
 	m_rad = {};
 	m_pos = {};
 	m_move = {};
 	m_moveSpd = 0.0f;
 
-	m_animeMove = 0.0f;
-	m_animeSpd = 0.1f;
+	m_animeInfo.start = 0;
+	m_animeInfo.end = 1;
+	m_animeInfo.count = 0.0f;
+	m_animeInfo.speed=0.1f;
+
+	//アニメーション
+	m_splitX = 1;
+	m_splitY = 1;
+	m_rectMin = {};
 }
 
 void BaseObject::Release()

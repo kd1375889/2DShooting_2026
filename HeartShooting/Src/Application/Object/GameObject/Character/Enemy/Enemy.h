@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include "../BaseCharacter.h"
 
-class Player : public BaseCharacter
+class Enemy : public BaseCharacter
 {
 public:
 
-	Player(){}
-	~Player()			override { Release(); }
+	Enemy() {}
+	~Enemy()			override { Release(); }
 
 	void Init()			override;
 	void Update()		override;
@@ -16,5 +16,4 @@ public:
 
 private:
 
-	void Action();					//プレイヤー操作
 };

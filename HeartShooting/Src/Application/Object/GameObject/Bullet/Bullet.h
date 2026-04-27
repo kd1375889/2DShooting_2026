@@ -10,7 +10,8 @@ public:
 
 	void Init()			override;
 	void Update()		override;
-	void Hit();
+	void PostUpdate()	override;
+	void Hit()			override;
 
 	//セッター
 	void Shot(Math::Vector2 a_pos,float a_angle);

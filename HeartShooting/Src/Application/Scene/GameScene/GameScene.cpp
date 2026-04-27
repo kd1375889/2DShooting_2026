@@ -1,6 +1,7 @@
 ﻿#include "GameScene.h"
 #include "../../Object/GameObject/Stage/BackGround/BackGround.h"
 #include "../../Object/GameObject/Character/Player/Player.h"
+#include "../../Object/GameObject/Character/Enemy/Enemy.h"
 
 void GameScene::Event()
 {
@@ -18,6 +19,11 @@ void GameScene::Init()
 	std::shared_ptr<Player> player = std::make_shared<Player>();
 	player->Init();
 	m_objList.push_back(player);
+
+	//敵
+	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+	enemy->Init();
+	m_objList.push_back(enemy);
 
 }
 

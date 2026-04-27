@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 class BaseScene;
+class BaseObject;
 
 class SceneManager
 {
@@ -29,9 +30,9 @@ public:
 		m_nextSceneType = a_nextSceneType;
 	}
 
-	const std::list<std::shared_ptr<KdGameObject>>& GetObjList();
+	std::list<std::shared_ptr<BaseObject>> GetObjList() const;
 
-	void AddObject(const std::shared_ptr<KdGameObject>& a_obj);
+	void AddObject(const std::shared_ptr<BaseObject>& a_obj);
 
 private:
 
