@@ -19,7 +19,6 @@ void BaseObject::Hit()
 
 }
 
-//テスト
 void BaseObject::Animetion()
 {
 	//アニメーション
@@ -48,7 +47,7 @@ void BaseObject::SetSplit(int a_splitX, int a_splitY)
 
 void BaseObject::CalcAnimeFrame(int frame)
 {
-	//何コマ目かを受け取り、X,Yそれぞれ何分割目かを計算
+	//何コマ目かを受け取り、切り取り範囲を計算してセット
 	int splitX,splitY;
 	splitX = (frame - 1) % m_splitX;
 	splitY = (frame - 1) / m_splitX;

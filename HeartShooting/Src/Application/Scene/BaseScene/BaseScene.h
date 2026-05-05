@@ -11,14 +11,14 @@ public:
 
 	virtual void Init();
 
-	void PreUpdate();
-	void Update();
-	void PostUpdate();
+	void			PreUpdate();
+	virtual void	Update();
+	void			PostUpdate();
 
-	void PreDraw();
-	void Draw();
-	void DrawSprite();
-	void DrawDebug();
+	void			PreDraw();
+	void			Draw();
+	virtual void	DrawSprite();
+	void			DrawDebug();
 
 	const std::list<std::shared_ptr<BaseObject>>& GetObjList()
 	{

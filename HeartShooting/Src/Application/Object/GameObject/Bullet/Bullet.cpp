@@ -46,29 +46,7 @@ void Bullet::Hit()
 {
 	if (!m_alive)return;
 
-	//プレイヤーの弾と敵
-	//std::list<std::shared_ptr<BaseObject>>::iterator itr;
-	//itr = SceneManager::Instance().GetObjList().begin();
-	//
-	//while (itr != SceneManager::Instance().GetObjList().end())
-	//{
-	//	//if ((*itr)->GetObjType() == ObjectType::Enemy)
-	//	{
-	//		//Math::Vector2 ePos = (*itr)->GetPos();
-	//		//float disX, disY, dis;
-	//		//disX = ePos.x - m_pos.x;
-	//		//disY = ePos.y - m_pos.y;
-	//		//dis = sqrt(disX * disX + disY * disY);
-
-	//		//if (dis < m_rad.y + (*itr)->GetRadius().y)
-	//		//{
-	//		//	(*itr)->Hit();
-	//		//	m_alive = false;
-	//		//	return;
-	//		//}
-	//	}
-	//}
-
+	//弾と敵
 	std::list<std::shared_ptr<BaseObject>> objList;
 	std::list<std::shared_ptr<BaseObject>>::iterator itr;
 	objList = SceneManager::Instance().GetObjList();
@@ -78,36 +56,20 @@ void Bullet::Hit()
 	{
 		if ((*itr)->GetObjType() == ObjectType::Enemy)
 		{
-			Math::Vector2 ePos = (*itr)->GetPos();
-			float disX, disY, dis;
-			disX = ePos.x - m_pos.x;
-			disY = ePos.y - m_pos.y;
-			dis = sqrt(disX * disX + disY * disY);
 
-			if (dis < m_rad.y + (*itr)->GetRadius().y)
+			Math::Vector2 dis = (*itr)->GetPos() - m_pos;
+
+			if (dis.Length() < m_rad.y + (*itr)->GetRadius().y)
 			{
 				(*itr)->Hit();
 				m_alive = false;
 				return;
 			}
 		}
-		//else if ((*itr)->GetObjType() == ObjectType::Player)
-		//{
-		//	Math::Vector2 ePos = (*itr)->GetPos();
-		//	float disX, disY, dis;
-		//	disX = ePos.x - m_pos.x;
-		//	disY = ePos.y - m_pos.y;
-		//	dis = sqrt(disX * disX + disY * disY);
-
-		//	if (dis < m_rad.y + (*itr)->GetRadius().y)
-		//	{
-		//		(*itr)->Hit();
-		//		m_alive = false;
-		//		return;
-		//	}
-		//}
+		
 		itr++;
 	}
+
 }
 
 void Bullet::Shot(Math::Vector2 a_pos, float a_angle)

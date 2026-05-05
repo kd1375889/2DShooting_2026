@@ -6,7 +6,7 @@ public:
 
 	void DrawSprite();
 
-	//カーソル座標計算(mainで呼び出し中)
+	//カーソル座標計算(main.cppのExecute()で呼び出し中)
 	void CalcMousePos(HWND a_hWnd);
 
 	//カーソルへの角度計算

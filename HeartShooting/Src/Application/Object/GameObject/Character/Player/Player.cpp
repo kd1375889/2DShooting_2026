@@ -16,8 +16,8 @@ void Player::Init()
 	//初期値
 	m_rad = { 9,13 };
 	m_pos = { 0,-200 };
+	m_moveSpd = 3.0f;
 	m_alive = true;
-	m_shotCount = 30;
 
 	//アニメーション値
 	m_animeInfo.start = 10;
@@ -28,16 +28,23 @@ void Player::Init()
 
 void Player::Update()
 {
+	//移動量リセット
+	m_move = {};
+
 	//弾発射間隔
 	m_shotCount--;
-	if (m_shotCount < -1) m_shotCount = -1;
+	if (m_shotCount < 0) m_shotCount = 0;
 
 	//操作
 	Action();
+
+	//座標確定
+	m_pos += m_move;
 }
 
 void Player::PostUpdate()
 {
+	//アニメーション
 	BaseObject::Animetion();
 }
 
@@ -53,10 +60,28 @@ void Player::Hit()
 
 void Player::Action()
 {
+	//移動
+	if (GetAsyncKeyState('W') & 0x8000)
+	{
+		m_move.y = m_moveSpd;
+	}
+	if (GetAsyncKeyState('A') & 0x8000)
+	{
+		m_move.x = -m_moveSpd;
+	}
+	if (GetAsyncKeyState('S') & 0x8000)
+	{
+		m_move.y = -m_moveSpd;
+	}
+	if (GetAsyncKeyState('D') & 0x8000)
+	{
+		m_move.x = m_moveSpd;
+	}
+
 	//弾発射
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 	{
-		if (m_shotCount < 0)
+		if (m_shotCount <= 0)
 		{
 			float angle = CursorManager::Instance().CalcToCurAng(m_pos);
 			std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
@@ -64,7 +89,7 @@ void Player::Action()
 			bullet->Shot(m_pos, angle);
 			SceneManager::Instance().AddObject(bullet);
 
-			m_shotCount = 30;
+			m_shotCount = m_shotInter;
 		}
 	}
 }

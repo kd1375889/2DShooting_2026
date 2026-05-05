@@ -112,6 +112,9 @@
     <Filter Include="Src\Application\Object\GameObject\Character\Enemy">
       <UniqueIdentifier>{bc2f621c-ded2-442d-afbf-1f85f2a3418b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\GameObject\GUI">
+      <UniqueIdentifier>{dfce9453-fd17-4f20-8045-ed74a6322f26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -312,6 +315,12 @@
     <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\Enemy.h">
       <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\WaveManager.h">
+      <Filter>Src\Application\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\GUI\GUI.h">
+      <Filter>Src\Application\Object\GameObject\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -481,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\Enemy.cpp">
       <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\WaveManager.cpp">
+      <Filter>Src\Application\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\GUI\GUI.cpp">
+      <Filter>Src\Application\Object\GameObject\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

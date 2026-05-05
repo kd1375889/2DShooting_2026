@@ -12,6 +12,7 @@ void Enemy::Init()
 
 	//初期値
 	m_rad = { 8,16 };
+	m_moveSpd = 4.0f;
 
 	//アニメーション値
 	m_animeInfo.start = 19;
@@ -22,7 +23,12 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
+	m_pos.y -= m_moveSpd;
 
+	if (m_pos.y < -360)
+	{
+		m_pos.y = 360;
+	}
 }
 
 void Enemy::PostUpdate()
@@ -42,4 +48,27 @@ void Enemy::Hit()
 	{
 		m_isExpired = true;
 	}
+}
+
+void Enemy::Spawn(EnemyType a_type, Math::Vector2 a_pos)
+{
+	m_type = a_type;
+	m_pos = a_pos;
+	m_alive = true;
+}
+
+void Enemy::SetSpawnInfo()
+{
+	m_waveMorning.spawns = { {EnemyType::Normal,2,{0,200}},
+							{ EnemyType::Normal,2,{0,200} },
+							{ EnemyType::Normal,2,{0,200} },
+							{ EnemyType::Normal,2,{0,200} },
+							{ EnemyType::Normal,2,{0,200} },
+							{ EnemyType::Normal,2,{0,200} },
+						   };
+
+
+
+
+
 }

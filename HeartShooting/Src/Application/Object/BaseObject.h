@@ -1,8 +1,13 @@
 ﻿#pragma once
 
+class GameScene;
+
 class BaseObject :public KdGameObject
 {
 public:
+
+	BaseObject() {}
+	virtual ~BaseObject()		override { Release(); }
 
 	//オブジェクトの種類
 	enum class ObjectType
@@ -12,7 +17,8 @@ public:
 		Enemy,		//2:敵
 		Bullet,		//3:弾
 		Item,		//4:アイテム
-		Stage		//5:ステージ(当たり判定あり)
+		Stage,		//5:ステージ(当たり判定あり)
+		GUI			//6:GUI
 	};
 
 	//アニメーション
@@ -23,9 +29,6 @@ public:
 		float	count;			//コマ数カウント
 		float	speed;			//アニメーション速度
 	};
-
-	BaseObject() {};
-	virtual ~BaseObject()		override { Release(); }
 
 	virtual void Update()		override;
 	virtual void PostUpdate()	override;
@@ -44,7 +47,7 @@ protected:
 	virtual void Release()		override;
 
 	//アニメーション
-	void ChangeAnimetion();						//アニメーションの種類変更時に呼び出し
+	virtual void ChangeAnimetion();				//アニメーションの種類変更時に呼び出し
 	void SetSplit(int a_splitX, int a_splitY);	//テクスチャ分割数セッター
 	void CalcAnimeFrame(int frame);				//切り取り範囲計算
 
@@ -61,14 +64,14 @@ protected:
 
 	Math::Rectangle m_rect = {};					//切り取り範囲
 	Math::Vector2	m_rad = {};						//半径
+	
 	Math::Vector2	m_pos = {};						//座標
 	Math::Vector2	m_move = {};					//移動量
 	float			m_moveSpd = 0.0f;				//移動スピード
 		
-	AnimetionInfo	m_animeInfo;					//アニメーション管理
-
 	//アニメーション
-	int m_splitX;				//分割数X
-	int m_splitY;				//分割数Y
-	Math::Vector2 m_rectMin;	//切り取り最小値
+	AnimetionInfo	m_animeInfo = {};	//アニメーション管理
+	int				m_splitX = 1;		//分割数X
+	int				m_splitY = 1;		//分割数Y
+	Math::Vector2	m_rectMin = {};		//切り取り最小値
 };
