@@ -1,0 +1,20 @@
+﻿#pragma once
+#include "../BaseEnemy.h"
+
+class GroupEnemy :public BaseEnemy
+{
+public:
+
+	GroupEnemy() {}
+	~GroupEnemy()		override { Release(); }
+
+	void Init()			override;
+	void Update()		override;
+	void Hit()			override;
+
+private:
+
+	void Release()	override;
+
+	EnemyType m_type = EnemyType::Group;
+};

@@ -1,39 +1,22 @@
 ﻿#include "GameScene.h"
 #include "../../Object/GameObject/Stage/BackGround/BackGround.h"
 #include "../../Object/GameObject/Character/Player/Player.h"
-#include "../../Object/GameObject/Character/Enemy/Enemy.h"
+#include "../../Object/GameObject/Character/Enemy/BaseEnemy.h"
 #include "../../Object/GameObject/WaveManager.h"
 #include "../../Object/GameObject/GUI/GUI.h"
-#include "../../Object/Cursor/CursorManager.h"
+
+void GameScene::PreUpdate()
+{
+	BaseScene::PreUpdate();
+
+	m_spWaveManager->PreUpdate();
+}
 
 void GameScene::Update()
 {
-	Event();
+	BaseScene::Update();
 
 	m_spWaveManager->Update();
-
-	for (auto& obj : m_objList)
-	{
-		obj->Update();
-	}
-}
-
-void GameScene::DrawSprite()
-{
-	// ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-	// 2Dの描画はこの間で行う
-	KdShaderManager::Instance().m_spriteShader.Begin();
-	{
-		for (auto& obj : m_objList)
-		{
-			obj->DrawSprite();
-		}
-
-		//カーソル描画(全てのシーンで)
-		CursorManager::Instance().DrawSprite();
-	}
-	KdShaderManager::Instance().m_spriteShader.End();
-
 }
 
 void GameScene::Event()
@@ -48,21 +31,22 @@ void GameScene::Init()
 	backGround->Init();
 	m_objList.push_back(backGround);
 
-	//プレイヤー
-	std::shared_ptr<Player> player = std::make_shared<Player>();
-	player->Init();
-	m_objList.push_back(player);
-
 	//敵
-	std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+	std::shared_ptr<BaseEnemy> enemy = std::make_shared<BaseEnemy>();
 	enemy->Init();
-	m_objList.push_back(enemy);
 
 	//ウェーブ管理
 	m_spWaveManager = std::make_shared<WaveManager>();
-	m_spWaveManager->Init();
-	m_spWaveManager->SetOwner(shared_from_this());
+	m_spWaveManager->SetGameScene(shared_from_this());
 	m_spWaveManager->SetEnemy(enemy);
+	m_spWaveManager->Init();
+
+	//プレイヤー
+	std::shared_ptr<Player> player = std::make_shared<Player>();
+	player->Init();
+	player->SetWaveManager(m_spWaveManager);
+	player->SetGameScene(shared_from_this());
+	m_objList.push_back(player);
 
 	//GUI
 	m_spGUI = std::make_shared<GUI>();

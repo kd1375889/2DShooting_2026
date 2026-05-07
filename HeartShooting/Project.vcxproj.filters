@@ -115,6 +115,12 @@
     <Filter Include="Src\Application\Object\GameObject\GUI">
       <UniqueIdentifier>{dfce9453-fd17-4f20-8045-ed74a6322f26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Character\Enemy\NormalEnemy">
+      <UniqueIdentifier>{a45a26b7-29a9-419f-813e-5b5caeba2151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy">
+      <UniqueIdentifier>{bd0231b0-30ed-40e2-8b1d-28e4ab811d6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -312,14 +318,20 @@
     <ClInclude Include="Src\Application\Object\GameObject\Bullet\Bullet.h">
       <Filter>Src\Application\Object\GameObject\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\Enemy.h">
-      <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Object\GameObject\WaveManager.h">
       <Filter>Src\Application\Object\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Object\GameObject\GUI\GUI.h">
       <Filter>Src\Application\Object\GameObject\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\BaseEnemy.h">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\NormalEnemy\NormalEnemy.h">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy\NormalEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy\GroupEnemy.h">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy\GroupEnemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -488,14 +500,20 @@
     <ClCompile Include="Src\Application\Object\GameObject\Bullet\Bullet.cpp">
       <Filter>Src\Application\Object\GameObject\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\Enemy.cpp">
-      <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Object\GameObject\WaveManager.cpp">
       <Filter>Src\Application\Object\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\Object\GameObject\GUI\GUI.cpp">
       <Filter>Src\Application\Object\GameObject\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\BaseEnemy.cpp">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\NormalEnemy\NormalEnemy.cpp">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy\NormalEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy\GroupEnemy.cpp">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy\GroupEnemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

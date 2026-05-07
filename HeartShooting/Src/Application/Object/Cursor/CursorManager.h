@@ -12,21 +12,27 @@ public:
 	//カーソルへの角度計算
 	const float CalcToCurAng(Math::Vector2 a_pos);
 
+	//セッター
+	//ロックオン状態かどうか
+	void SetLockFlg(bool a_lockFlg)
+	{
+		m_lockFlg = a_lockFlg;
+	}
+
 	//ゲッター
 	//カーソル座標取得
-	const POINT& GetCurPos() const
-	{
-		return m_curPos;
-	}
+	const Math::Vector2& GetCurPos();
 
 private:
 
 	void Init();
 	void Release();
 
-	std::shared_ptr<KdTexture>	m_spTex = nullptr;				//カーソルテクスチャ
+	std::shared_ptr<KdTexture>	m_spTex[2] = {};				//カーソルテクスチャ
 	POINT						m_curPos = {};					//カーソル座標
 	const Math::Vector2			m_ScreenSize = { 1280,720 };	//ゲーム画面サイズ
+
+	bool						m_lockFlg = false;
 
 //シングルトンパターン
 private:

@@ -2,7 +2,14 @@
 
 void CursorManager::DrawSprite()
 {
-	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, m_curPos.x, m_curPos.y);
+	if (!m_lockFlg)
+	{
+		KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex[0], m_curPos.x, m_curPos.y);
+	}
+	else
+	{
+		KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex[1], m_curPos.x, m_curPos.y);
+	}
 }
 
 void CursorManager::CalcMousePos(HWND a_hWnd)
@@ -19,20 +26,30 @@ void CursorManager::CalcMousePos(HWND a_hWnd)
 
 const float CursorManager::CalcToCurAng(Math::Vector2 a_pos)
 {
-	float disX, disY, dis;
+	float disX, disY;
 
 	disX = m_curPos.x - a_pos.x;
 	disY = m_curPos.y - a_pos.y;
-	dis = sqrt(disX * disX + disY * disY);
 
 	return atan2(disY, disX);
+}
+
+const Math::Vector2& CursorManager::GetCurPos()
+{
+	float x, y;
+	x = m_curPos.x;
+	y = m_curPos.y;
+	return Math::Vector2(x, y);
 }
 
 void CursorManager::Init()
 {
 	//テクスチャ
-	m_spTex = std::make_shared<KdTexture>();
-	m_spTex->Load("Asset/Textures/GUI/Cursor.png");
+	m_spTex[0] = std::make_shared<KdTexture>();
+	m_spTex[0]->Load("Asset/Textures/GUI/Cursor.png");
+
+	m_spTex[1] = std::make_shared<KdTexture>();
+	m_spTex[1]->Load("Asset/Textures/GUI/LockCursor.png");
 
 	//初期座標
 	m_curPos = {};

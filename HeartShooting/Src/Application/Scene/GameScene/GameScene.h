@@ -11,11 +11,10 @@ public:
 	GameScene() {}
 	~GameScene() {}
 
-	void Update()	override;
-	void DrawSprite() override;
-
+	void PreUpdate()	override;
+	void Update()		override;
 	//ゲッター
-	const std::shared_ptr<GUI> GetGUI()
+	const std::shared_ptr<GUI>& GetGUI()
 	{
 		return m_spGUI;
 	}

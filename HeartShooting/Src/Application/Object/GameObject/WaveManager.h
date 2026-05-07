@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-class Enemy;
+class BaseEnemy;
 class GameScene;
 
 //ゲーム内ウェーブ管理用クラス(GameSceneでインスタンス化、m_objList外)
@@ -14,34 +14,46 @@ public:
 	enum class WaveType
 	{
 		None,		//0:無し
-		Morning,	//1:第一ウェーブ(朝)
-		Noon,		//2:第二ウェーブ(昼)
-		Night,		//3:第三ウェーブ(夜)
-		Finish		//4:ゲーム終了
+		Start,		//1:ゲーム開始時
+		Morning,	//2:第一ウェーブ(朝)
+		Noon,		//3:第二ウェーブ(昼)
+		Night,		//4:第三ウェーブ(夜)
+		Finish		//5:ゲーム終了
 	};
 
 	void Init();
+	void PreUpdate();
 	void Update();
 
-	void SetEnemy(std::shared_ptr<Enemy>  a_spEnemy)
+	void SetEnemy(std::shared_ptr<BaseEnemy>  a_spEnemy)
 	{
 		m_spEnemy = a_spEnemy;
 	}
-	void SetOwner(std::shared_ptr<GameScene>  a_spOwner)
+	void SetGameScene(std::shared_ptr<GameScene>  a_spGameScene)
 	{
-		m_spOwner = a_spOwner;
+		m_spGameScene = a_spGameScene;
 	}
+
+	const std::list<std::shared_ptr<BaseEnemy>>& GetEnemyList()
+	{
+		return m_eneList;
+	}
+
+	void ChackEnemy();
 
 private:
 
 	void Release();
 	void ChangeWave();
 
-	std::shared_ptr<Enemy>		m_spEnemy = nullptr;
-	std::shared_ptr<GameScene>	m_spOwner = nullptr;
+	std::shared_ptr<BaseEnemy>	m_spEnemy = nullptr;
+	std::shared_ptr<GameScene>	m_spGameScene = nullptr;
 
-	WaveType			m_currentWave = WaveType::Morning;	//今のウェーブ
+	std::list<std::shared_ptr<BaseEnemy>> m_eneList = {};
 
-	const unsigned int	m_waveChangeTime = 5;		//ウェーブチェンジ間隔
-	unsigned int		m_timer = 0.0f;				//タイマー
+	WaveType			m_currentWave	= WaveType::Start;		//今のウェーブ
+
+	const unsigned int	m_waveChangeTime = 30;		//ウェーブチェンジ間隔
+	unsigned int		m_timer = 0;				//タイマー
+	int					m_spawnIndex = 0;			//敵スポーン管理
 };

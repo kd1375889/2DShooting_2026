@@ -1,5 +1,7 @@
 ﻿#include "Bullet.h"
 #include "../../../Scene/SceneManager.h"
+#include "../../../Scene/GameScene/GameScene.h"
+#include "../GUI/GUI.h"
 
 void Bullet::Init()
 {
@@ -11,7 +13,7 @@ void Bullet::Init()
 	m_objType = ObjectType::Bullet;
 
 	//初期値
-	m_moveSpd = 8.0f;
+	m_moveSpd = 10.0f;
 	m_rect = { 0,0,32,32 };
 	m_rad = { 16,16 };
 	m_angle = 0.0f;
@@ -20,9 +22,15 @@ void Bullet::Init()
 
 void Bullet::Update()
 {
-	//カーソルへの角度を使用して移動量計算
-	m_move.x = cos(m_angle) * m_moveSpd;
-	m_move.y = sin(m_angle) * m_moveSpd;
+	switch (m_type)
+	{
+	case BulletType::Normal:
+		NormalBulletUpdate();
+		break;
+	case BulletType::Lock:
+		LockOnBulletUpdate();
+		break;
+	}
 
 	//座標確定
 	m_pos += m_move;
@@ -32,17 +40,42 @@ void Bullet::Update()
 		m_pos.y < m_ScreenMinY - m_rad.y ||
 		m_pos.y > m_ScreenMaxY + m_rad.y)
 	{
-		m_alive = false;
+		m_isExpired = true;
 	}
 
-	Hit();
+	HitEnemy();
 }
 
 void Bullet::PostUpdate()
 {
+	if (!m_alive)
+	{
+		m_isExpired = true;
+	}
 }
 
 void Bullet::Hit()
+{
+	m_alive = false;
+}
+
+void Bullet::Shot(BulletType a_type,Math::Vector2 a_pos, float a_angle)
+{
+	m_type = a_type;
+	m_pos = a_pos;
+	m_angle = a_angle;
+	m_alive = true;
+}
+
+void Bullet::Release()
+{
+	if (m_spTex)
+	{
+		m_spTex = nullptr;
+	}
+}
+
+void Bullet::HitEnemy()
 {
 	if (!m_alive)return;
 
@@ -56,33 +89,30 @@ void Bullet::Hit()
 	{
 		if ((*itr)->GetObjType() == ObjectType::Enemy)
 		{
-
 			Math::Vector2 dis = (*itr)->GetPos() - m_pos;
 
 			if (dis.Length() < m_rad.y + (*itr)->GetRadius().y)
 			{
 				(*itr)->Hit();
-				m_alive = false;
+				Hit();
+				m_spGameScene->GetGUI()->IncCombo();
 				return;
 			}
 		}
-		
 		itr++;
 	}
-
 }
 
-void Bullet::Shot(Math::Vector2 a_pos, float a_angle)
+void Bullet::NormalBulletUpdate()
 {
-	m_pos = a_pos;
-	m_angle = a_angle;
-	m_alive = true;
+	//カーソルへの角度を使用して移動量計算
+	m_move.x = cos(m_angle) * m_moveSpd;
+	m_move.y = sin(m_angle) * m_moveSpd;
 }
 
-void Bullet::Release()
+void Bullet::LockOnBulletUpdate()
 {
-	if (m_spTex)
-	{
-		m_spTex = nullptr;
-	}
+	//敵に向かって高速で移動
+	m_move.x = cos(m_angle) * m_moveSpd * 5;
+	m_move.y = sin(m_angle) * m_moveSpd * 5;
 }

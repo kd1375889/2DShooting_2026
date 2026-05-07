@@ -8,6 +8,11 @@ public:
 	BaseCharacter() {};
 	~BaseCharacter()			override{};
 
+	bool& GetAliveFlg()
+	{
+		return m_alive;
+	}
+
 protected:
 
 	int			m_hp = 1;					//体力
