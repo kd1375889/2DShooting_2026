@@ -13,4 +13,8 @@ private:
 	void Event()	override;
 	void Init()		override;
 	void Release()	override;
+
+	//仮
+	Math::Vector2 m_startPos = {};
+	Math::Vector2 m_startRad = {};
 };

@@ -121,6 +121,21 @@
     <Filter Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy">
       <UniqueIdentifier>{bd0231b0-30ed-40e2-8b1d-28e4ab811d6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\TitleObject\TitleBackGround">
+      <UniqueIdentifier>{a0a8c4e6-6b13-46a1-a5e2-314870d7a8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\TitleObject\TitleText">
+      <UniqueIdentifier>{8cc6aad6-ee02-4cd8-8194-16e0ae583f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\ResultObject\ResultBackGround">
+      <UniqueIdentifier>{b23cb8ef-20cf-4104-8b0f-652833b34aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\ResultObject\ResultText">
+      <UniqueIdentifier>{b7c19eea-23a4-4b4e-9949-f60da7cbc7e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Object\GameObject\Character\Enemy\RegularEnemy">
+      <UniqueIdentifier>{cc334673-fb5f-4aa6-9a47-c93ce4445ed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -333,6 +348,21 @@
     <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy\GroupEnemy.h">
       <Filter>Src\Application\Object\GameObject\Character\Enemy\GroupEnemy</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\TitleObject\TitleBackGround\TitleBackGround.h">
+      <Filter>Src\Application\Object\TitleObject\TitleBackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\TitleObject\TitleText\TitleText.h">
+      <Filter>Src\Application\Object\TitleObject\TitleText</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\ResultObject\ResultBackGround\ResultBackGround.h">
+      <Filter>Src\Application\Object\ResultObject\ResultBackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\ResultObject\ResultText\ResultText.h">
+      <Filter>Src\Application\Object\ResultObject\ResultText</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\GameObject\Character\Enemy\RegularEnemy\RegularEnemy.h">
+      <Filter>Src\Application\Object\GameObject\Character\Enemy\RegularEnemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -515,6 +545,19 @@
     <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\GroupEnemy\GroupEnemy.cpp">
       <Filter>Src\Application\Object\GameObject\Character\Enemy\GroupEnemy</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Application\Object\TitleObject\TitleBackGround\TitleBackGround.cpp">
+      <Filter>Src\Application\Object\TitleObject\TitleBackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\TitleObject\TitleText\TitleText.cpp">
+      <Filter>Src\Application\Object\TitleObject\TitleText</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\ResultObject\ResultBackGround\ResultBackGround.cpp">
+      <Filter>Src\Application\Object\ResultObject\ResultBackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\ResultObject\ResultText\ResultText.cpp">
+      <Filter>Src\Application\Object\ResultObject\ResultText</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\GameObject\Character\Enemy\RegularEnemy\RegularEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Framework\Shader\inc_KdCommon.hlsli">

@@ -1,4 +1,5 @@
 ﻿#include "GameScene.h"
+#include "../SceneManager.h"
 #include "../../Object/GameObject/Stage/BackGround/BackGround.h"
 #include "../../Object/GameObject/Character/Player/Player.h"
 #include "../../Object/GameObject/Character/Enemy/BaseEnemy.h"
@@ -21,7 +22,11 @@ void GameScene::Update()
 
 void GameScene::Event()
 {
-	KdDebugGUI::Instance().AddLog("GameScene");
+	//デバッグキー
+	if (GetAsyncKeyState('U') & 0x8000)
+	{
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+	}
 }
 
 void GameScene::Init()
@@ -35,6 +40,11 @@ void GameScene::Init()
 	std::shared_ptr<BaseEnemy> enemy = std::make_shared<BaseEnemy>();
 	enemy->Init();
 
+	//GUI
+	m_spGUI = std::make_shared<GUI>();
+	m_spGUI->Init();
+	m_objList.push_back(m_spGUI);
+
 	//ウェーブ管理
 	m_spWaveManager = std::make_shared<WaveManager>();
 	m_spWaveManager->SetGameScene(shared_from_this());
@@ -47,11 +57,6 @@ void GameScene::Init()
 	player->SetWaveManager(m_spWaveManager);
 	player->SetGameScene(shared_from_this());
 	m_objList.push_back(player);
-
-	//GUI
-	m_spGUI = std::make_shared<GUI>();
-	m_spGUI->Init();
-	m_objList.push_back(m_spGUI);
 }
 
 void GameScene::Release()
@@ -64,8 +69,5 @@ void GameScene::Release()
 	{
 		m_spGUI = nullptr;
 	}
-	if (m_objList.size())
-	{
-		m_objList.clear();
-	}
+	BaseScene::Release();
 }

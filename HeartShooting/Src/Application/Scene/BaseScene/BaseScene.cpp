@@ -140,4 +140,8 @@ void BaseScene::Event()
 
 void BaseScene::Release()
 {
+	if (m_objList.size())
+	{
+		m_objList.clear();
+	}
 }

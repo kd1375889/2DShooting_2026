@@ -13,18 +13,18 @@ public:
 
 	enum class WaveType
 	{
-		None,		//0:無し
-		Start,		//1:ゲーム開始時
-		Morning,	//2:第一ウェーブ(朝)
-		Noon,		//3:第二ウェーブ(昼)
-		Night,		//4:第三ウェーブ(夜)
-		Finish		//5:ゲーム終了
+		Start,		//0:スタート
+		Morning,	//1:第一ウェーブ(朝)
+		Noon,		//2:第二ウェーブ(昼)
+		Night,		//3:第三ウェーブ(夜)
+		Finish		//4:ゲーム終了
 	};
 
 	void Init();
 	void PreUpdate();
 	void Update();
 
+	//セッター
 	void SetEnemy(std::shared_ptr<BaseEnemy>  a_spEnemy)
 	{
 		m_spEnemy = a_spEnemy;
@@ -34,17 +34,22 @@ public:
 		m_spGameScene = a_spGameScene;
 	}
 
+	//ゲッター
 	const std::list<std::shared_ptr<BaseEnemy>>& GetEnemyList()
 	{
 		return m_eneList;
 	}
 
 	void ChackEnemy();
+	void CalcShopComfort(int a_damage);
 
 private:
 
 	void Release();
 	void ChangeWave();
+	//仮
+	void SetResultData();
+	void ChackFinFlg();
 
 	std::shared_ptr<BaseEnemy>	m_spEnemy = nullptr;
 	std::shared_ptr<GameScene>	m_spGameScene = nullptr;
@@ -53,7 +58,16 @@ private:
 
 	WaveType			m_currentWave	= WaveType::Start;		//今のウェーブ
 
-	const unsigned int	m_waveChangeTime = 30;		//ウェーブチェンジ間隔
+	const unsigned int	m_waveChangeTime = 40;		//ウェーブチェンジ間隔
+	unsigned int		m_waveTimer = 0;			//ウェーブチェンジタイマー
 	unsigned int		m_timer = 0;				//タイマー
 	int					m_spawnIndex = 0;			//敵スポーン管理
+
+	const int			m_MaxComfort = 10;
+	int					m_comfort = m_MaxComfort;
+
+	bool m_finFlg = false;
+
+	//デバッグ
+	bool m_keyFlg = false;
 };

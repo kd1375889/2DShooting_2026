@@ -18,6 +18,10 @@ public:
 	{
 		return m_spGUI;
 	}
+	const std::shared_ptr<WaveManager>& GetWave()
+	{
+		return m_spWaveManager;
+	}
 
 private:
 

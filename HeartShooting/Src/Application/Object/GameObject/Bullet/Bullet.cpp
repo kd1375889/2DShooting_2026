@@ -7,7 +7,7 @@ void Bullet::Init()
 {
 	//テクスチャ
 	m_spTex = std::make_shared<KdTexture>();
-	m_spTex->Load("Asset/Textures/Game/PlayerBullet.png");
+	m_spTex->Load("Asset/Textures/GameScene/Bullet/PlayerBullet.png");
 
 	//オブジェクトタイプ
 	m_objType = ObjectType::Bullet;
@@ -35,10 +35,10 @@ void Bullet::Update()
 	//座標確定
 	m_pos += m_move;
 
-	if (m_pos.x < m_ScreenMinX - m_rad.x ||
-		m_pos.x > m_ScreenMaxX + m_rad.x ||
-		m_pos.y < m_ScreenMinY - m_rad.y ||
-		m_pos.y > m_ScreenMaxY + m_rad.y)
+	if (m_pos.x < m_GameScrMinX - m_rad.x ||
+		m_pos.x > m_GameScrMaxX - m_rad.x ||
+		m_pos.y < m_GameScrMinY - m_rad.y ||
+		m_pos.y > m_GameScrMaxY + m_rad.y)
 	{
 		m_isExpired = true;
 	}
@@ -73,6 +73,10 @@ void Bullet::Release()
 	{
 		m_spTex = nullptr;
 	}
+	if (m_spGameScene)
+	{
+		m_spGameScene = nullptr;
+	}
 }
 
 void Bullet::HitEnemy()
@@ -93,10 +97,13 @@ void Bullet::HitEnemy()
 
 			if (dis.Length() < m_rad.y + (*itr)->GetRadius().y)
 			{
-				(*itr)->Hit();
-				Hit();
-				m_spGameScene->GetGUI()->IncCombo();
-				return;
+				if ((*itr)->GetAliveFlg())
+				{
+					(*itr)->Hit();
+					Hit();
+					m_spGameScene->GetGUI()->IncCombo();
+					return;
+				}
 			}
 		}
 		itr++;

@@ -66,6 +66,7 @@ void BaseObject::Init()
 	m_pos = {};
 	m_move = {};
 	m_moveSpd = 0.0f;
+	m_alive = true;
 
 	m_animeInfo.start = 0;
 	m_animeInfo.end = 1;

@@ -30,13 +30,19 @@ public:
 private:
 
 	void Action();					//プレイヤー操作
+	void HitEnemy();
+	void Release()		override;
 
-	std::shared_ptr<GameScene>			m_spGameScene = nullptr;
+	std::shared_ptr<GameScene>				m_spGameScene = nullptr;
+
+	//HP管理
+	const int								m_CoolTime = 3;
+	int										m_coolTimer = m_CoolTime * 60;
 
 	//ロックオン攻撃
-	std::shared_ptr<WaveManager>		m_wave = nullptr;
+	std::shared_ptr<WaveManager>			m_wave = nullptr;
 	std::vector<std::shared_ptr<BaseEnemy>>	m_lockEnemy = {};
-	bool								m_lockFlg = false;
-	const int							m_lockInter = 3;
-	int									m_lockCount = 0;
+	bool									m_lockFlg = false;
+	const int								m_lockInter = 3;
+	int										m_lockCount = m_lockInter * 60;
 };

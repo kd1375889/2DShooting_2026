@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "../BaseCharacter.h"
 
+class GameScene;
+
 class BaseEnemy : public BaseCharacter
 {
 public:
@@ -46,12 +48,25 @@ public:
 		m_lockFlg = a_lockFlg;
 	}
 
+	void SetGameScene(std::shared_ptr<GameScene>  a_spGameScene)
+	{
+		m_spGameScene = a_spGameScene;
+	}
 
 	//ゲッター
-	SpawnInfo& GetSpawnInfo()
+	SpawnInfo& GetSpawnInfoMorning()
 	{
-		return m_wave;
+		return m_wave[0];
 	}
+	SpawnInfo& GetSpawnInfoNoon()
+	{
+		return m_wave[1];
+	}
+	SpawnInfo& GetSpawnInfoNight()
+	{
+		return m_wave[2];
+	}
+
 	bool& GetLockFlg()
 	{
 		return m_lockFlg;
@@ -59,12 +74,18 @@ public:
 
 protected:
 
+	void Release()			override;
 	void ChangeAnimetion()	override;
+
+	std::shared_ptr<GameScene>	m_spGameScene = nullptr;
+
+	std::shared_ptr<KdTexture>	m_spHPTex = nullptr;
 
 	EnemyType	m_type = EnemyType::None;
 
 	//敵スポーンデータ
-	SpawnInfo m_wave;
+	SpawnInfo	m_wave[3];
+	const int	m_TotalWave = 3;
 
 	//ロックオン済みか
 	bool		m_lockFlg = false;

@@ -1,16 +1,16 @@
 ﻿#include "Player.h"
 #include "../../../../Scene/GameScene/GameScene.h"
-//#include "../../../../Scene/SceneManager.h"
 #include "../../../Cursor/CursorManager.h"
 #include "../../WaveManager.h"
 #include "../../Bullet/Bullet.h"
 #include "../../Character/Enemy/BaseEnemy.h"
+#include "../../GUI/GUI.h"
 
 void Player::Init()
 {
 	//テクスチャ
 	m_spTex = std::make_shared<KdTexture>();
-	m_spTex->Load("Asset/Textures/Game/Player2.png");
+	m_spTex->Load("Asset/Textures/GameScene/Character/Player/Player2.png");
 	SetSplit(9, 3);
 
 	//オブジェクトタイプ
@@ -18,9 +18,10 @@ void Player::Init()
 
 	//初期値
 	m_rad = { 9,13 };
-	m_pos = { 0,-200 };
+	m_pos = { -170,-200 };
 	m_moveSpd = 3.0f;
 	m_alive = true;
+	m_hp = 5;
 
 	//アニメーション値
 	m_animeInfo.start = 10;
@@ -31,17 +32,49 @@ void Player::Init()
 
 void Player::Update()
 {
-	//移動量リセット
+	//移動量とクールタイムリセット
 	m_move = {};
+	m_coolTimer--;
+	if (m_coolTimer <= 0)
+	{
+		m_coolTimer = 0;
+	}
 
 	//弾発射間隔
 	m_shotCount--;
 	if (m_shotCount < 0) m_shotCount = 0;
+	//ロックオン間隔
 	m_lockCount--;
-	if (m_lockCount < 0) m_lockCount = 0;
+	if (m_lockCount < 0)
+	{
+		m_lockCount = 0;
+		CursorManager::Instance().SetLockOKFlg(true);	//ロックオン可能カーソル
+	}
+	else
+	{
+		CursorManager::Instance().SetLockOKFlg(false);
+	}
 
 	//操作
 	Action();
+
+	//移動範囲制限
+	if (m_pos.x < m_GameScrMinX + 32)
+	{
+		m_pos.x = m_GameScrMinX + 32;
+	}
+	else if (m_pos.x > m_GameScrMaxX - 32)
+	{
+		m_pos.x = m_GameScrMaxX - 32;
+	}
+	else if (m_pos.y < m_GameScrMinY + 32)
+	{
+		m_pos.y = m_GameScrMinY + 32;
+	}
+	else if (m_pos.y > m_GameScrMaxY - 32)
+	{
+		m_pos.y = m_GameScrMaxY - 32;
+	}
 
 	//座標確定
 	m_pos += m_move;
@@ -49,18 +82,30 @@ void Player::Update()
 
 void Player::PostUpdate()
 {
+	//敵との当たり判定
+	HitEnemy();
+
 	//アニメーション
 	BaseObject::Animetion();
+
+	//GUI管理者にプレイヤーHPを渡す
+	m_spGameScene->GetGUI()->SetPlayerHP(m_hp);
 }
 
 void Player::DrawSprite()
 {
+	KdDebugGUI::Instance().AddLog("hp:%d\n", m_hp);
 	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, m_pos.x, m_pos.y,64,64,&m_rect);
 }
 
 void Player::Hit()
 {
-	m_isExpired = true;
+	m_hp--;
+	if (m_hp <= 0)
+	{
+		m_alive = false;
+	}
+	m_coolTimer = m_CoolTime * 60;
 }
 
 void Player::Action()
@@ -153,15 +198,58 @@ void Player::Action()
 				bullet->Shot(Bullet::BulletType::Lock, m_pos, atan2(dis.y, dis.x));
 				bullet->SetGameScene(m_spGameScene);
 				m_spGameScene->AddObjList(bullet);
-				//SceneManager::Instance().AddObject(bullet);
 
 				//リセット
-				m_lockCount = m_lockInter;
+				m_lockCount = m_lockInter * 60;
 				m_lockFlg = false;
 				m_lockEnemy.clear();
 			}
 		}
 
 		CursorManager::Instance().SetLockFlg(m_lockFlg);	//ロックオンカーソル
+	}
+}
+
+void Player::HitEnemy()
+{
+	if (m_alive && m_coolTimer <= 0)
+	{
+		//ウェーブマネージャーから敵リスト取得
+		std::list<std::shared_ptr<BaseEnemy>> eneList = m_wave->GetEnemyList();
+		std::list<std::shared_ptr<BaseEnemy>>::iterator itr = eneList.begin();
+
+		Math::Vector2 enePos, dis;
+
+		while (itr != eneList.end())
+		{
+			if ((*itr)->GetAliveFlg())
+			{
+				enePos = (*itr)->GetPos();
+				dis = enePos - m_pos;
+				if (dis.Length() < (m_rad + (*itr)->GetRadius()).Length())
+				{
+					Hit();
+					return;
+				}
+			}
+			itr++;
+		}
+	}
+
+}
+
+void Player::Release()
+{
+	if (m_spGameScene)
+	{
+		m_spGameScene = nullptr;
+	}
+	if (m_wave)
+	{
+		m_wave = nullptr;
+	}
+	if (m_lockEnemy.size())
+	{
+		m_lockEnemy={};
 	}
 }
