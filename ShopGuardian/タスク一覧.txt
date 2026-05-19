@@ -1,0 +1,20 @@
+2026/5/13
+目標：コード整理を終わらせる
+　　　特定の弾でしか倒せない敵を追加する
+
+タスク
+☑・コード整理！！！
+・敵情報をCSV読み込み形式に変更
+☑・Dataクラスの作成
+・リザルトに表示するデータをCSV書き込み＆読み込み形式に変更
+
+確認済み↓
+main
+SceneManager
+BaseScene
+TitleScene
+TitleObject内
+BaseObject
+BaseCharacter
+
+
